@@ -10,9 +10,9 @@ else:
     router = SimpleRouter()
 
 router.register("users", UserViewSet)
-router.register(r'car', CarViewSet, basename='car')
-router.register(r'rate', RateViewSet, basename='rate')
-router.register(r'popular', PopularCarViewSet, basename='popular')
+router.register(r"car", CarViewSet, basename="car")
+router.register(r"rate", RateViewSet, basename="rate")
+router.register(r"popular", PopularCarViewSet, basename="popular")
 
 
 app_name = "api"

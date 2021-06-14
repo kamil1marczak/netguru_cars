@@ -1,10 +1,7 @@
-
-
-from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
 from django.db import models
 
 RATING_CHOICES = [(i, i) for i in range(6)]
+
 
 class Car(models.Model):
     id = models.AutoField(primary_key=True)
@@ -30,7 +27,11 @@ class Car(models.Model):
         return f"make: {self.make} model: {self.model}"
 
     class Meta:
-        unique_together = ('make', 'model',)
+        unique_together = (
+            "make",
+            "model",
+        )
+
 
 class Rating(models.Model):
     id = models.AutoField(primary_key=True)

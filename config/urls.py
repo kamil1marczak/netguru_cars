@@ -5,7 +5,11 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 
 
 urlpatterns = [
@@ -31,17 +35,22 @@ urlpatterns += [
 
 # schema should be available only in debug mode however due to the nature of project I keep it here
 urlpatterns += [
-        # YOUR PATTERNS
-        path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-        # Optional UI:
-        path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-        path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-    ]
+    # YOUR PATTERNS
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    # Optional UI:
+    path(
+        "api/schema/swagger-ui/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path(
+        "api/schema/redoc/",
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
+    ),
+]
 
 if settings.DEBUG:
-
-
-
 
     # This allows the error pages to be debugged during development, just visit
     # these url in browser to see how these error pages look like.

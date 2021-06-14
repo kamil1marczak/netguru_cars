@@ -8,27 +8,37 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Car',
+            name="Car",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('make', models.CharField(max_length=512)),
-                ('model', models.CharField(max_length=512)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("make", models.CharField(max_length=512)),
+                ("model", models.CharField(max_length=512)),
             ],
-            options={
-                'unique_together': {('make', 'model')},
-            },
+            options={"unique_together": {("make", "model")},},
         ),
         migrations.CreateModel(
-            name='Rating',
+            name="Rating",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('rating_value', models.IntegerField(choices=[(0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5)], default=0)),
-                ('car', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='ratings', to='cars.car')),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                (
+                    "rating_value",
+                    models.IntegerField(
+                        choices=[(0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5)],
+                        default=0,
+                    ),
+                ),
+                (
+                    "car",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="ratings",
+                        to="cars.car",
+                    ),
+                ),
             ],
         ),
     ]
