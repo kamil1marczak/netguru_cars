@@ -25,14 +25,15 @@ def test_car_list():
 
 @pytest.mark.django_db
 def test_car_detail(api_rf: APIRequestFactory, user: User, car: Car):
-    view = CarViewSet.as_view({'get': 'retrieve'})
+    view = CarViewSet.as_view({"get": "retrieve"})
 
-    request = api_rf.get(f'cars/{car.pk}')
+    request = api_rf.get(f"cars/{car.pk}")
     force_authenticate(request, user=user)
     response = view(request, pk=car.pk)
 
     assert response.status_code == status.HTTP_200_OK
     assert response.data == CarSerializer(car).data
+
 
 @pytest.mark.django_db
 def test_rate_list():
@@ -42,17 +43,17 @@ def test_rate_list():
 
 @pytest.mark.django_db
 def test_rate_detail(api_rf: APIRequestFactory, user: User, car: Car, rate: Rating):
-    view = RateViewSet.as_view({'get': 'retrieve'})
+    view = RateViewSet.as_view({"get": "retrieve"})
 
-    request = api_rf.get(f'rate/{rate.pk}')
+    request = api_rf.get(f"rate/{rate.pk}")
     force_authenticate(request, user=user)
     response = view(request, pk=rate.pk)
 
     assert response.status_code == status.HTTP_200_OK
     assert response.data == RatingSerializer(rate).data
 
+
 @pytest.mark.django_db
 def test_popular_list():
     assert reverse("api:popular-list") == "/api/popular/"
     assert resolve("/api/popular/").view_name == "api:popular-list"
-
