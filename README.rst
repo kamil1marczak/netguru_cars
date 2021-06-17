@@ -5,11 +5,13 @@ django rest api workshop for netguru recrutment process
 
 Main
 -----
-the application is running on address
-.. _app: https://evening-fjord-94905.herokuapp.com/
+the application is running on address:
+``https://evening-fjord-94905.herokuapp.com/``
 
-to check available api entry points go to
-.. _schema: https://evening-fjord-94905.herokuapp.com/api/schema/swagger-ui/
+to check available api entry points go to schema:
+``https://evening-fjord-94905.herokuapp.com/api/schema/swagger-ui/``
+or
+``https://evening-fjord-94905.herokuapp.com/api/schema/redoc/``
 
 to access as superuser:
 user: root
