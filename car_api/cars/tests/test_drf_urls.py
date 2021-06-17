@@ -1,24 +1,58 @@
 import pytest
 from django.urls import resolve, reverse
+from rest_framework import status
+from rest_framework.test import force_authenticate, APIRequestFactory
 
-from netguru_project.users.models import User
+from car_api.users.models import User
+from car_api.cars.models import Car, Rating
 
-pytestmark = pytest.mark.django_db
+from car_api.cars.api.views import (
+    CarViewSet,
+    RateViewSet,
+)
 
-
-def test_user_detail(user: User):
-    assert (
-        reverse("api:user-detail", kwargs={"username": user.username})
-        == f"/api/users/{user.username}/"
-    )
-    assert resolve(f"/api/users/{user.username}/").view_name == "api:user-detail"
-
-
-def test_user_list():
-    assert reverse("api:user-list") == "/api/users/"
-    assert resolve("/api/users/").view_name == "api:user-list"
+from car_api.cars.api.serializers import (
+    CarSerializer,
+    RatingSerializer,
+)
 
 
-def test_user_me():
-    assert reverse("api:user-me") == "/api/users/me/"
-    assert resolve("/api/users/me/").view_name == "api:user-me"
+@pytest.mark.django_db
+def test_car_list():
+    assert reverse("api:car-list") == "/api/cars/"
+    assert resolve("/api/cars/").view_name == "api:car-list"
+
+
+@pytest.mark.django_db
+def test_car_detail(api_rf: APIRequestFactory, user: User, car: Car):
+    view = CarViewSet.as_view({'get': 'retrieve'})
+
+    request = api_rf.get(f'cars/{car.pk}')
+    force_authenticate(request, user=user)
+    response = view(request, pk=car.pk)
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data == CarSerializer(car).data
+
+@pytest.mark.django_db
+def test_rate_list():
+    assert reverse("api:rate-list") == "/api/rate/"
+    assert resolve("/api/rate/").view_name == "api:rate-list"
+
+
+@pytest.mark.django_db
+def test_rate_detail(api_rf: APIRequestFactory, user: User, car: Car, rate: Rating):
+    view = RateViewSet.as_view({'get': 'retrieve'})
+
+    request = api_rf.get(f'rate/{rate.pk}')
+    force_authenticate(request, user=user)
+    response = view(request, pk=rate.pk)
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data == RatingSerializer(rate).data
+
+@pytest.mark.django_db
+def test_popular_list():
+    assert reverse("api:popular-list") == "/api/popular/"
+    assert resolve("/api/popular/").view_name == "api:popular-list"
+

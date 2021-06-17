@@ -1,32 +1,27 @@
 from typing import Any, Sequence
 
-from django.contrib.auth import get_user_model
+# from django.contrib.auth import get_user_model
+import factory
+
+from car_api.cars.models import Car, Rating
 from factory import Faker, post_generation
 from factory.django import DjangoModelFactory
 
 
-class UserFactory(DjangoModelFactory):
-
-    username = Faker("user_name")
-    email = Faker("email")
-    name = Faker("name")
-
-    @post_generation
-    def password(self, create: bool, extracted: Sequence[Any], **kwargs):
-        password = (
-            extracted
-            if extracted
-            else Faker(
-                "password",
-                length=42,
-                special_chars=True,
-                digits=True,
-                upper_case=True,
-                lower_case=True,
-            ).evaluate(None, None, extra={"locale": None})
-        )
-        self.set_password(password)
+class CarFactory(DjangoModelFactory):
+    make = Faker("company")
+    model = Faker("company")
 
     class Meta:
-        model = get_user_model()
-        django_get_or_create = ["username"]
+        model = Car
+        django_get_or_create = ["make", "model", ]
+
+
+class RateFactory(DjangoModelFactory):
+    rating_value = Faker("random_int")
+    car = factory.SubFactory(CarFactory)
+
+    class Meta:
+        model = Rating
+        django_get_or_create = ["rating_value", ]
+
