@@ -3,18 +3,16 @@ from django.urls import resolve, reverse
 from rest_framework import status
 from rest_framework.test import force_authenticate, APIRequestFactory
 
-from car_api.users.models import User
-from car_api.cars.models import Car, Rating
-
-from car_api.cars.api.views import (
-    CarViewSet,
-    RateViewSet,
-)
-
 from car_api.cars.api.serializers import (
     CarSerializer,
     RatingSerializer,
 )
+from car_api.cars.api.views import (
+    CarViewSet,
+    RateViewSet,
+)
+from car_api.cars.models import Car, Rating
+from car_api.users.models import User
 
 
 @pytest.mark.django_db

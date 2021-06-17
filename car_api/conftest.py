@@ -1,11 +1,11 @@
 import pytest
 from pytest_django.lazy_django import skip_if_no_django
-
-from car_api.users.models import User
-from car_api.cars.models import Car, Rating
-from car_api.users.tests.factories import UserFactory
-from car_api.cars.tests.factories import CarFactory, RateFactory
 from rest_framework.test import APIRequestFactory
+
+from car_api.cars.models import Car, Rating
+from car_api.cars.tests.factories import CarFactory, RateFactory
+from car_api.users.models import User
+from car_api.users.tests.factories import UserFactory
 
 
 @pytest.fixture()

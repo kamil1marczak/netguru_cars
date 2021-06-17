@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from car_api.cars.models import Car, Rating
 
 

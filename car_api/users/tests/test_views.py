@@ -11,24 +11,12 @@ from django.urls import reverse
 from car_api.users.forms import UserChangeForm
 from car_api.users.models import User
 from car_api.users.tests.factories import UserFactory
-from car_api.users.views import (
-    UserRedirectView,
-    UserUpdateView,
-    user_detail_view,
-)
+from car_api.users.views import UserRedirectView, UserUpdateView, user_detail_view
 
 pytestmark = pytest.mark.django_db
 
 
 class TestUserUpdateView:
-    """
-    TODO:
-        extracting view initialization code as class-scoped fixture
-        would be great if only pytest-django supported non-function-scoped
-        fixture db access -- this is a work-in-progress for now:
-        https://github.com/pytest-dev/pytest-django/pull/258
-    """
-
     def dummy_get_response(self, request: HttpRequest):
         return None
 
